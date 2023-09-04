@@ -1,0 +1,44 @@
+name: Availability
+
+on:
+  schedule:
+    - cron: "*/30 7-21 * * *"
+  workflow_dispatch:
+
+env:
+  ACTIONS_ALLOW_UNSECURE_COMMANDS: true
+
+jobs:
+  scrape-latest:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+      - name: Set up Python
+        uses: actions/setup-python@v2.0.0
+        with:
+          python-version: '3.11'
+      - name: Install requirements
+        run: pip install -r requirements.txt
+      - name: Run Scraper
+        run: echo ::set-output name=found::$(python scrape_availability.py)
+        id: scrape
+      - name: Debug
+        run: |
+          echo found is ${{steps.scrape.outputs.found}} 
+          echo STOCK is ${{ env.STOCK }}
+      - name: Send mail
+        if: steps.scrape.outputs.found == 1
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.gmail.com
+          server_port: 465
+          username: ${{secrets.MAIL_USERNAME}}
+          password: ${{secrets.MAIL_PASSWORD}}
+          subject: Embassy availability update
+          to: juan.elosua@gmail.com
+          body: Uniformes en jesuitas: ${{env.STOCK}}
+          from: Automated Email
+          ignore_cert: true
+          secure: true
