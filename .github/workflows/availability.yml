@@ -14,22 +14,22 @@ jobs:
 
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Set up Python
-        uses: actions/setup-python@v2.0.0
+        uses: actions/setup-python@v4
         with:
           python-version: '3.11'
       - name: Install requirements
         run: pip install -r requirements.txt
       - name: Run Scraper
-        run: echo ::set-output name=found::$(python scrape_availability.py)
+        run: echo "found=$(python scrape_availability.py)" >> "$GITHUB_OUTPUT"
         id: scrape
       - name: Debug
         run: |
           echo found is ${{steps.scrape.outputs.found}} 
           echo STOCK is ${{ env.STOCK }}
       - name: Send mail
-        #if: steps.scrape.outputs.found == 1
+        if: steps.scrape.outputs.found == 1
         uses: dawidd6/action-send-mail@v3
         with:
           server_address: smtp.gmail.com
