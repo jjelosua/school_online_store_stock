@@ -29,7 +29,7 @@ jobs:
           echo found is ${{steps.scrape.outputs.found}} 
           echo STOCK is ${{ env.STOCK }}
       - name: Send mail
-        if: steps.scrape.outputs.found == 1
+        #if: steps.scrape.outputs.found == 1
         uses: dawidd6/action-send-mail@v3
         with:
           server_address: smtp.gmail.com

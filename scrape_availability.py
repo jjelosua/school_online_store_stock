@@ -53,14 +53,15 @@ try:
                 msg += "%s %s \n" % (d['descripcion'], stock.find('p').string)
                 if (stock.find('p').string != "Agotado"):
                     found_stock = True
-        
-    if found_stock:
-        print(1)
-        env_file = os.getenv('GITHUB_ENV')
+    
+    env_file = os.getenv('GITHUB_ENV')
         with open(env_file, "a") as myfile:
+        if found_stock:
+            print(1)
             myfile.write("STOCK=%s" % (msg))
-    else:
-        print(0)
+        else:
+            print(0)
+            myfile.write("STOCK=Sin disponibilidad")
 
 except Exception as e:
     print("could not retrieve stock data")
