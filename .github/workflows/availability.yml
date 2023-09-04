@@ -36,7 +36,7 @@ jobs:
           server_port: 465
           username: ${{secrets.MAIL_USERNAME}}
           password: ${{secrets.MAIL_PASSWORD}}
-          subject: Embassy availability update
+          subject: Disponibilidad de uniformes jesuitas
           to: juan.elosua@gmail.com
           body: "Uniformes en jesuitas: ${{env.STOCK}}"
           from: Automated Email

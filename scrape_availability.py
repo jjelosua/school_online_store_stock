@@ -54,15 +54,15 @@ try:
                 if (stock.find('p').string != "Agotado"):
                     found_stock = True
     
+    if found_stock:
+        print(1)
+    else:
+        print(0)
+        msg="Sin disponibilidad"
+    
     env_file = os.getenv('GITHUB_ENV')
-        with open(env_file, "a") as myfile:
-        if found_stock:
-            print(1)
-            myfile.write("STOCK=%s" % (msg))
-        else:
-            print(0)
-            myfile.write("STOCK=Sin disponibilidad")
-
+    with open(env_file, "a") as myfile:
+        myfile.write("STOCK=%s" % (msg))
 except Exception as e:
     print("could not retrieve stock data")
     raise e
