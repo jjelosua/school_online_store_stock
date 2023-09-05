@@ -58,7 +58,6 @@ try:
         print(1)
     else:
         print(0)
-        msg="Sin disponibilidad"
     
     env_file = os.getenv('GITHUB_ENV')
     with open(env_file, "a") as myfile:
