@@ -50,7 +50,7 @@ try:
             if (v['attributes']['attribute_pa_talla'] == d['talla']):
                 # print('encontrada talla: %s' % (v['attributes']['attribute_pa_talla']))
                 stock = BeautifulSoup(v['availability_html'].strip('\n'), 'html.parser')
-                msg += " %s %s |" % (d['descripcion'], stock.find('p').string)
+                msg += " %s %s," % (d['descripcion'], stock.find('p').string)
                 if (stock.find('p').string != "Agotado"):
                     found_stock = True
     
@@ -59,9 +59,10 @@ try:
     else:
         print(0)
     
+    print(msg)
     env_file = os.getenv('GITHUB_ENV')
-    with open(env_file, "a") as myfile:
-        myfile.write("STOCK=%s" % (msg))
+    #with open(env_file, "a") as myfile:
+    #    myfile.write("STOCK=%s\n" % (msg))
 except Exception as e:
     print("could not retrieve stock data")
     raise e
