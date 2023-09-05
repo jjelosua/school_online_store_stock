@@ -31,7 +31,7 @@ CLOTHES = [
     "descripcion": "Polo manga corta T6: "},
     {"url": "https://jesuitasasvigo.latiendaruisell.com/producto/chaqueta-de-chandal/",
     "talla": "8",
-    "descripcion": "Chanqueta semicisne T8: "}]
+    "descripcion": "Chaqueta semicisne T8: "}]
 
 cwd = os.path.dirname(__file__)
 
@@ -61,7 +61,7 @@ try:
     
     env_file = os.getenv('GITHUB_ENV')
     with open(env_file, "a") as myfile:
-        myfile.write("STOCK=%s\n" % (msg))
+        myfile.write("STOCK=%s\n" % (msg.rstrip(',')))
 except Exception as e:
     print("could not retrieve stock data")
     raise e

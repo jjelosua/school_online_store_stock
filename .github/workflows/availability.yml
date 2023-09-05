@@ -29,7 +29,7 @@ jobs:
           echo found is ${{steps.scrape.outputs.found}} 
           echo STOCK is ${{ env.STOCK }}
       - name: Send mail
-        #if: steps.scrape.outputs.found == 1
+        if: steps.scrape.outputs.found == 1
         uses: dawidd6/action-send-mail@v3
         with:
           server_address: smtp.gmail.com
@@ -38,7 +38,7 @@ jobs:
           password: ${{secrets.MAIL_PASSWORD}}
           subject: Disponibilidad de uniformes jesuitas
           to: juan.elosua@gmail.com
-          body: "Uniformes en jesuitas: ${{env.STOCK}}"
+          body: "Uniformes en jesuitas: \n ${{env.STOCK}}"
           from: Automated Email
           ignore_cert: true
           secure: true
