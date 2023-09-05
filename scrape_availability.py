@@ -37,7 +37,7 @@ cwd = os.path.dirname(__file__)
 
 try:
     session = requests.Session()
-    msg = "Disponibilidad: \n"
+    msg = "Disponibilidad:"
     found_stock = False
     for d in CLOTHES:
         r = session.get(d['url'])
@@ -50,7 +50,7 @@ try:
             if (v['attributes']['attribute_pa_talla'] == d['talla']):
                 # print('encontrada talla: %s' % (v['attributes']['attribute_pa_talla']))
                 stock = BeautifulSoup(v['availability_html'].strip('\n'), 'html.parser')
-                msg += "%s %s \n" % (d['descripcion'], stock.find('p').string)
+                msg += " %s %s |" % (d['descripcion'], stock.find('p').string)
                 if (stock.find('p').string != "Agotado"):
                     found_stock = True
     
