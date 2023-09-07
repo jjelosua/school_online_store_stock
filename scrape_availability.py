@@ -52,7 +52,10 @@ try:
                 stock = BeautifulSoup(v['availability_html'].strip('\n'), 'html.parser')
                 msg += " %s %s," % (d['descripcion'], stock.find('p').string)
                 if (stock.find('p').string != "Agotado"):
-                    found_stock = True
+                    if (d['url'] == CLOTHES[1]['url'] && stock.find('p').string == '1 disponibles'):
+                        continue
+                    else:
+                        found_stock = True
     
     if found_stock:
         print(1)
